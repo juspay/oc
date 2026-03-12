@@ -47,6 +47,7 @@
                 imports = [ oc.homeModules.default ];
 
                 programs.opencode.package = oc.packages.${system}.default;
+                programs.bash.enable = true;
 
                 home = {
                   username = "testuser";
@@ -64,14 +65,12 @@
             machine.wait_for_unit("multi-user.target")
 
             machine.succeed("loginctl enable-linger testuser")
-            machine.succeed("machinectl shell testuser@ /bin/true")
 
-            machine.succeed("sudo -u testuser XDG_RUNTIME_DIR=/run/user/1000 systemctl --user daemon-reload")
-
-            version = machine.succeed("sudo -u testuser /home/testuser/.nix-profile/bin/opencode --version")
+            # Use su - to get proper PATH from home-manager bash profile
+            version = machine.succeed("su - testuser -c 'opencode --version'")
             print(f"OpenCode version: {version}")
 
-            config_file = machine.succeed("sudo -u testuser cat /home/testuser/.config/opencode/opencode.json")
+            config_file = machine.succeed("su - testuser -c 'cat ~/.config/opencode/opencode.json'")
             print(f"Config file contents: {config_file}")
 
             if "litellm" in config_file:
