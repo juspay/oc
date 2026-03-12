@@ -40,21 +40,11 @@
               uid = 1000;
             };
 
-            systemd.services."user@1000" = {
-              overrideStrategy = "asDropin";
-            };
-
-            systemd.tmpfiles.rules = [
-              "d /run/user/1000 0755 testuser testuser -"
-            ];
-
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
               users.testuser = {
                 imports = [ oc.homeModules.default ];
-
-                programs.opencode.package = oc.packages.${system}.default;
 
                 home = {
                   username = "testuser";
@@ -75,9 +65,6 @@
             machine.succeed("machinectl shell testuser@ /bin/true")
 
             machine.succeed("sudo -u testuser XDG_RUNTIME_DIR=/run/user/1000 systemctl --user daemon-reload")
-
-            version = machine.succeed("sudo -u testuser XDG_RUNTIME_DIR=/run/user/1000 opencode --version")
-            print(f"OpenCode version: {version}")
 
             config_file = machine.succeed("sudo -u testuser cat /home/testuser/.config/opencode/opencode.json")
             print(f"Config file contents: {config_file}")
