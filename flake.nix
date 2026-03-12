@@ -15,13 +15,10 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
-      perSystem = { self', lib, system, ... }: {
-        packages.default = llm-agents.packages.${system}.opencode;
+      perSystem = { self', lib, system, inputs', ... }: {
+        packages.default = inputs'.llm-agents.packages.opencode;
 
-        apps.default = {
-          type = "app";
-          program = lib.getExe' self'.packages.default "opencode";
-        };
+        apps.default.program = lib.getExe' self'.packages.default "opencode";
       };
     };
 }
