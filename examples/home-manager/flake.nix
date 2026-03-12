@@ -68,6 +68,12 @@
 
             machine.succeed("sudo -u testuser XDG_RUNTIME_DIR=/run/user/1000 systemctl --user daemon-reload")
 
+            # Debug: check what's in the home directory
+            print(machine.succeed("ls -la /home/testuser/"))
+            print(machine.succeed("ls -la /home/testuser/.nix-profile/ 2>/dev/null || echo 'no profile'"))
+            print(machine.succeed("ls -la /home/testuser/.nix-profile/bin/ 2>/dev/null || echo 'no bin'"))
+            print(machine.succeed("ls -la /home/testuser/.local/share/nix/profile/ 2>/dev/null || echo 'no profile dir'"))
+
             version = machine.succeed("sudo -u testuser /home/testuser/.nix-profile/bin/opencode --version")
             print(f"OpenCode version: {version}")
 
