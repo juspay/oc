@@ -46,6 +46,8 @@
               users.testuser = {
                 imports = [ oc.homeModules.default ];
 
+                programs.opencode.package = oc.packages.${system}.default;
+
                 home = {
                   username = "testuser";
                   homeDirectory = "/home/testuser";
