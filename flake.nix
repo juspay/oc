@@ -25,8 +25,8 @@
 
         packages = {
           default = pkgs.llm-agents.opencode;
-          juspay = import ./modules/juspay/package.nix { inherit pkgs lib; };
-          juspay-standalone = import ./modules/juspay/package-standalone.nix { inherit pkgs lib; };
+          juspay = pkgs.callPackage ./modules/juspay/package.nix { opencode = pkgs.llm-agents.opencode; };
+          juspay-standalone = pkgs.callPackage ./modules/juspay/package-standalone.nix { opencode = pkgs.llm-agents.opencode; };
         };
 
         apps = {
