@@ -1,5 +1,5 @@
 {
-  description = "One-click access to OpenCode for Nix users";
+  description = "One-click OpenCode for Juspay";
 
   nixConfig = {
     extra-substituters = "https://cache.nixos.asia/oss";
@@ -20,16 +20,23 @@
         _module.args.pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          overlays = [
+            llm-agents.overlays.default
+            # Expose opencode directly for callPackage to auto-fill the argument
+            (final: prev: { opencode = prev.llm-agents.opencode; })
+          ];
         };
 
         packages = {
-          default = inputs'.llm-agents.packages.opencode;
-          juspay = import ./modules/juspay/package.nix { inherit pkgs lib; };
+          default = pkgs.callPackage ./packages/default.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
+          opencode = pkgs.opencode;
+          oneclick = pkgs.callPackage ./packages/oneclick.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
         };
 
         apps = {
           default.program = lib.getExe' self'.packages.default "opencode";
-          juspay.program = lib.getExe' self'.packages.juspay "opencode";
+          opencode.program = lib.getExe' self'.packages.opencode "opencode";
+          oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
         };
       };
 

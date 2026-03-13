@@ -11,7 +11,8 @@
         ]
     , build.flakes =
         [ "."
-        , "./examples/home-manager" { overrideInputs = [("oc", ".")] }
+        , "./test/home-manager" { overrideInputs = [("oc", ".")] }
+        , "./test/standalone" { overrideInputs = [("oc", ".")] }
         ]
     , signoff.enable = True
     , cache.url = if

@@ -1,34 +1,37 @@
 # OpenCode Nix
 
-One-click access to OpenCode for Nix users.
+One-click OpenCode for Juspay.
+
+> [!IMPORTANT]
+> This flake is for **Juspay employees only**. It provides pre-configured OpenCode with Juspay's internal LLM API.
 
 <img width="1320" height="1098" alt="image" src="https://github.com/user-attachments/assets/8a79ff2d-24c6-4142-a012-46687ab8bdeb" />
 
 
 ## Quick Start
 
+> [!NOTE]
+> `JUSPAY_API_KEY` is required and can be created at https://grid.ai.juspay.net/dashboard (requires VPN).
+
+### One-click
+
+Config embedded in package (read-only, defined in [models.nix](modules/juspay/models.nix)). Use Default or home-manager approach below to customize:
+
 ```bash
+export JUSPAY_API_KEY=your-api-key
+nix run github:juspay/oc#oneclick
+```
+
+### Default
+
+Auto-creates `~/.config/opencode/opencode.json` on first run. Edit this file to customize:
+
+```bash
+export JUSPAY_API_KEY=your-api-key
 nix run github:juspay/oc
 ```
 
-## Juspay Configuration
-
-> [!NOTE]
-> For Juspay people: `JUSPAY_API_KEY` needs to be set and can be created at https://grid.ai.juspay.net/dashboard (requires VPN).
-
-Run with Juspay-specific LiteLLM configuration:
-
-```bash
-# Set your API key
-export JUSPAY_API_KEY=your-api-key
-
-# Run with Juspay configuration
-nix run github:juspay/oc#juspay
-```
-
 ### With home-manager
-
-Add to your home-manager configuration:
 
 ```nix
 {
@@ -61,7 +64,7 @@ nix flake update oc
 OpenCode can run as a web application in your browser:
 
 ```bash
-nix run github:juspay/oc#juspay -- web
+nix run github:juspay/oc -- web
 ```
 
 This starts a local server and opens OpenCode in your default browser. Sessions are shared between the web UI and CLI, so you can switch between them seamlessly. You can also specify a port or make it accessible on your network with `--port 4096 --hostname 0.0.0.0`.
