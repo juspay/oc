@@ -9,9 +9,12 @@ let
     fi
   '';
 in
-opencode.overrideAttrs (old: {
-  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
-  postFixup = ''
-    wrapProgram $out/bin/opencode --run '${initScript}' --set OPENCODE_CONFIG ${configFile}
-  '';
-})
+pkgs.runCommand "opencode-juspay" {
+  nativeBuildInputs = [ pkgs.makeWrapper ];
+  meta.mainProgram = "opencode";
+} ''
+  mkdir -p $out/bin
+  makeWrapper ${lib.getExe opencode} $out/bin/opencode \
+    --run '${initScript}' \
+    --set OPENCODE_CONFIG ${configFile}
+''
