@@ -20,15 +20,11 @@
         _module.args.pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [
-            (final: prev: {
-              opencode = inputs'.llm-agents.packages.opencode;
-            })
-          ];
+          overlays = [ llm-agents.overlays.default ];
         };
 
         packages = {
-          default = pkgs.opencode;
+          default = pkgs.llm-agents.opencode;
           juspay = import ./modules/juspay/package.nix { inherit pkgs lib; };
           juspay-standalone = import ./modules/juspay/package-standalone.nix { inherit pkgs lib; };
         };
