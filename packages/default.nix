@@ -1,11 +1,4 @@
-{ pkgs, lib, opencode }:
-let
-  juspaySettings = import ../modules/juspay/settings.nix;
-  jsonFormat = pkgs.formats.json { };
-  configFile = jsonFormat.generate "opencode.json" ({
-    "$schema" = "https://opencode.ai/config.json";
-  } // juspaySettings);
-in
+{ pkgs, lib, opencode, configFile }:
 pkgs.runCommand "opencode-juspay-standalone" {
   nativeBuildInputs = [ pkgs.makeWrapper ];
   meta.mainProgram = "opencode";

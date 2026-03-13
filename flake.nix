@@ -28,9 +28,9 @@
         };
 
         packages = {
-          default = pkgs.callPackage ./packages/default.nix { };
+          default = pkgs.callPackage ./packages/default.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
           opencode = pkgs.opencode;
-          oneclick = pkgs.callPackage ./packages/oneclick.nix { };
+          oneclick = pkgs.callPackage ./packages/oneclick.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
         };
 
         apps = {
