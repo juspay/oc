@@ -16,7 +16,17 @@ nix run github:juspay/oc
 > [!NOTE]
 > For Juspay people: `JUSPAY_API_KEY` needs to be set and can be created at https://grid.ai.juspay.net/dashboard (requires VPN).
 
-Run with Juspay-specific LiteLLM configuration:
+### Variants
+
+There are three package variants available:
+
+| Variant | Description |
+|---------|-------------|
+| `#default` | Upstream OpenCode, no Juspay configuration |
+| `#juspay` | Requires `JUSPAY_API_KEY`, config embedded via env var |
+| `#juspay-standalone` | Requires `JUSPAY_API_KEY`, auto-creates config file on first run |
+
+### Using `#juspay`
 
 ```bash
 # Set your API key
@@ -25,6 +35,22 @@ export JUSPAY_API_KEY=your-api-key
 # Run with Juspay configuration
 nix run github:juspay/oc#juspay
 ```
+
+This is useful when you want the Juspay configuration to be embedded in the package and not have to manage a config file.
+
+### Using `#juspay-standalone`
+
+This variant automatically creates the config file on first run if it doesn't exist:
+
+```bash
+# Set your API key
+export JUSPAY_API_KEY=your-api-key
+
+# Run - will create ~/.config/opencode/opencode.json if missing
+nix run github:juspay/oc#juspay-standalone
+```
+
+This is useful when you want persistent config that you can customize later.
 
 ### With home-manager
 
