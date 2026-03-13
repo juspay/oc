@@ -27,6 +27,7 @@ nix run github:juspay/oc#oneclick
 Auto-creates `~/.config/opencode/opencode.json` on first run:
 
 ```bash
+export JUSPAY_API_KEY=your-api-key
 nix run github:juspay/oc
 ```
 
