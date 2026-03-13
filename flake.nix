@@ -30,13 +30,13 @@
         packages = {
           default = pkgs.callPackage ./modules/juspay/package-standalone.nix { };
           opencode = pkgs.opencode;
-          juspay = pkgs.callPackage ./modules/juspay/package.nix { };
+          oneclick = pkgs.callPackage ./modules/juspay/package.nix { };
         };
 
         apps = {
           default.program = lib.getExe' self'.packages.default "opencode";
           opencode.program = lib.getExe' self'.packages.opencode "opencode";
-          juspay.program = lib.getExe' self'.packages.juspay "opencode";
+          oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
         };
       };
 
