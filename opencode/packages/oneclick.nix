@@ -1,6 +1,6 @@
 { pkgs, lib, opencode, configFile, skillsSrc }:
 let
-  checkApiKey = import ./check-api-key.nix;
+  ocLib = import ../lib.nix;
   configDir = pkgs.runCommand "opencode-config-dir" { } ''
     mkdir -p $out
     ln -s ${configFile} $out/opencode.json
@@ -14,6 +14,6 @@ pkgs.runCommand "opencode-juspay" {
   mkdir -p $out/bin
   makeWrapper ${lib.getExe opencode} $out/bin/opencode \
     --run 'export OPENCODE_WRAPPER_ARGS="$@"' \
-    --run '${checkApiKey}' \
+    --run '${ocLib.checkApiKey}' \
     --set OPENCODE_CONFIG_DIR ${configDir}
 ''

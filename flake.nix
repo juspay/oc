@@ -29,14 +29,14 @@
         };
 
         packages = {
-          default = pkgs.callPackage ./packages/default.nix {
+          default = pkgs.callPackage ./opencode/packages/default.nix {
             opencode-init = self'.packages.init;
             opencode-oneclick = self'.packages.oneclick;
           };
           opencode = pkgs.opencode;
-          init = pkgs.callPackage ./packages/init.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
-          oneclick = pkgs.callPackage ./packages/oneclick.nix {
-            configFile = pkgs.callPackage ./packages/config.nix { };
+          init = pkgs.callPackage ./opencode/packages/init.nix { configFile = pkgs.callPackage ./opencode/packages/config.nix { }; };
+          oneclick = pkgs.callPackage ./opencode/packages/oneclick.nix {
+            configFile = pkgs.callPackage ./opencode/packages/config.nix { };
             skillsSrc = inputs.skills;
           };
         };
@@ -50,7 +50,7 @@
       };
 
       flake.homeModules = {
-        default = import ./modules;
+        default = import ./opencode/modules;
         with-skills = { ... }: {
           imports = [
             self.homeModules.default
