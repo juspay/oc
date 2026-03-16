@@ -23,7 +23,8 @@ rec {
 
   # Init script that checks for JUSPAY_API_KEY and copies the config file.
   # Takes configFile as an argument (the Nix store path to the config).
-  mkInitScript = configFile: checkApiKey + ''
+  mkInitScript = configFile: ''
+    ${checkApiKey}
     config_dir="$HOME/.config/opencode"
     config_file="$config_dir/opencode.json"
     if [ ! -f "$config_file" ]; then
