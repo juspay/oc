@@ -12,13 +12,12 @@ One-click [OpenCode](https://opencode.ai/) for Juspay.
 
 ## Prerequisites
 
-- **Nix** — Install via [nixone](https://juspay.github.io/nixone/), which also sets up [home-manager](https://github.com/nix-community/home-manager) in `~/.config/home-manager`
-- **Nix flakes** — If you're new to flakes, see the [Nix First Steps](https://nixos.asia/en/nix-first) tutorial
+- **Nix** — Install via [nixone](https://juspay.github.io/nixone/), which also sets up [home-manager](https://github.com/juspay/nixos-unified-template) in `~/.config/home-manager`. New to Nix? See the [Nix First Steps](https://nixos.asia/en/nix-first) tutorial.
 - **`JUSPAY_API_KEY`** — Create one at [grid.ai.juspay.net/dashboard](https://grid.ai.juspay.net/dashboard) (requires VPN to create, but **not** to use OpenCode afterwards)
 
 ## Quick Start
 
-Run the interactive selector which lets you choose a variant:
+Run the interactive selector which lets you choose a variant (we recommend `oneclick`):
 
 ```bash
 export JUSPAY_API_KEY=your-api-key
@@ -73,7 +72,7 @@ modules = [
 
 The `JUSPAY_API_KEY` environment variable must be set when running OpenCode.
 
-To update opencode to the latest version (the flake.lock is auto-updated daily):
+To update opencode to the latest version (the flake.lock is auto-updated daily on this repo):
 
 ```bash
 nix flake update oc
