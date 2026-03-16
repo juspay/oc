@@ -18,32 +18,22 @@ One-click [OpenCode](https://opencode.ai/) for Juspay.
 
 ## Quick Start
 
-### Choosing a mode
-
-| | One-click | Default | home-manager |
-|---|---|---|---|
-| Command | `nix run github:juspay/oc#oneclick` | `nix run github:juspay/oc` | Via module in your config |
-| Config | Embedded (read-only) | `~/.config/opencode/opencode.json` (editable) | Declarative via Nix |
-| [Skills](https://opencode.ai/docs/skills/) | ✅ Bundled from [juspay/skills](https://github.com/juspay/skills) | ❌ | ✅ With `with-skills` module |
-| Customizable | ❌ | ✅ Edit JSON | ✅ Via Nix |
-
-### One-click
-
-Config and skills embedded in package. Skills from [juspay/skills](https://github.com/juspay/skills) are bundled automatically:
-
-```bash
-export JUSPAY_API_KEY=your-api-key
-nix run github:juspay/oc#oneclick
-```
-
-### Default
-
-Auto-creates `~/.config/opencode/opencode.json` on first run. Edit this file to [customize your configuration](https://opencode.ai/docs/configuration/):
+Run the interactive selector which lets you choose a variant:
 
 ```bash
 export JUSPAY_API_KEY=your-api-key
 nix run github:juspay/oc
 ```
+
+Or run a specific variant directly:
+
+| Variant | Command | Description |
+|---|---|---|
+| `oneclick` | `nix run github:juspay/oc#oneclick` | Ready to go with Juspay config and [skills](https://opencode.ai/docs/skills/) bundled from [juspay/skills](https://github.com/juspay/skills) |
+| `init` | `nix run github:juspay/oc#init` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/configuration/)) |
+| `opencode` | `nix run github:juspay/oc#opencode` | Plain OpenCode, no Juspay config |
+
+The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick` or `init` variants.
 
 ### With home-manager
 
@@ -62,7 +52,7 @@ Basic setup (no skills):
       modules = [
         inputs.oc.homeModules.default
         {
-          programs.opencode.package = inputs.oc.packages.x86_64-linux.default;
+          programs.opencode.package = inputs.oc.packages.x86_64-linux.opencode;
         }
       ];
     };
@@ -76,12 +66,12 @@ With skills from [juspay/skills](https://github.com/juspay/skills):
 modules = [
   inputs.oc.homeModules.with-skills
   {
-    programs.opencode.package = inputs.oc.packages.x86_64-linux.default;
+    programs.opencode.package = inputs.oc.packages.x86_64-linux.opencode;
   }
 ];
 ```
 
-The `JUSPAY_API_KEY` environment variable must be set when running OpenCode, regardless of installation method.
+The `JUSPAY_API_KEY` environment variable must be set when running OpenCode.
 
 To update opencode to the latest version (the flake.lock is auto-updated daily):
 
@@ -96,7 +86,7 @@ nix flake update oc
 OpenCode can run as a web application in your browser:
 
 ```bash
-nix run github:juspay/oc -- web
+nix run github:juspay/oc#opencode -- web
 ```
 
 This starts a local server and opens OpenCode in your default browser. Sessions are shared between the web UI and CLI, so you can switch between them seamlessly. You can also specify a port or make it accessible on your network with `--port 4096 --hostname 127.0.0.1`.

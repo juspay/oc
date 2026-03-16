@@ -16,7 +16,7 @@
       users.testuser = {
         imports = [ oc.homeModules.default ];
 
-        programs.opencode.package = oc.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        programs.opencode.package = oc.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
         programs.bash.enable = true;
 
         home = {

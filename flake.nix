@@ -29,8 +29,12 @@
         };
 
         packages = {
-          default = pkgs.callPackage ./packages/default.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
+          default = pkgs.callPackage ./packages/default.nix {
+            opencode-init = self'.packages.init;
+            opencode-oneclick = self'.packages.oneclick;
+          };
           opencode = pkgs.opencode;
+          init = pkgs.callPackage ./packages/init.nix { configFile = pkgs.callPackage ./packages/config.nix { }; };
           oneclick = pkgs.callPackage ./packages/oneclick.nix {
             configFile = pkgs.callPackage ./packages/config.nix { };
             skillsSrc = inputs.skills;
@@ -40,6 +44,7 @@
         apps = {
           default.program = lib.getExe' self'.packages.default "opencode";
           opencode.program = lib.getExe' self'.packages.opencode "opencode";
+          init.program = lib.getExe' self'.packages.init "opencode";
           oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
         };
       };

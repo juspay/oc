@@ -1,6 +1,6 @@
 { oc }:
 {
-  name = "opencode-default";
+  name = "opencode-init";
 
   nodes.machine = { pkgs, ... }: {
     users.users.testuser = {
@@ -9,7 +9,7 @@
     };
 
     environment.systemPackages = [
-      oc.packages.${pkgs.stdenv.hostPlatform.system}.default
+      oc.packages.${pkgs.stdenv.hostPlatform.system}.init
     ];
 
     system.stateVersion = "24.05";

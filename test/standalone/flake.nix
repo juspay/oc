@@ -1,5 +1,5 @@
 {
-  description = "OpenCode default package test";
+  description = "OpenCode standalone package tests";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,7 +12,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       checks.${system} = {
-        default = pkgs.testers.runNixOSTest (import ./test.nix { inherit oc; });
+        init = pkgs.testers.runNixOSTest (import ./test.nix { inherit oc; });
         oneclick = pkgs.testers.runNixOSTest (import ./test-oneclick.nix { inherit oc; });
       };
     };
