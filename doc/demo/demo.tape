@@ -10,7 +10,7 @@ Output demo.gif
 Require nix
 
 Set Shell "bash"
-Set FontSize 16
+Set FontSize 22
 Set Width 1200
 Set Height 800
 Set TypingSpeed 50ms
@@ -34,13 +34,19 @@ Enter
 Wait+Screen /Ask anything/
 Sleep 2s
 
-# Type a hello world prompt
-Type "explain this repo"
+# Type a hello world prompt.
+# Trick: ask the LLM to concatenate two words (ALFA+BRAVO) and print the result.
+# The prompt contains "ALFA" and "BRAVO" separately, but never "ALFABRAVO" as
+# one string — so Wait+Screen only matches when the LLM outputs the combined form.
+Type "briefly explain this repo. Then print ALFA concatenated with BRAVO."
 Sleep 500ms
 Enter
 
-# Wait for the response to stream in
-Sleep 15s
+# Wait for the combined marker (only appears in the response)
+Wait+Screen /ALFABRAVO/
+Sleep 4s
 
-# Capture final state
-Sleep 3s
+# Exit OpenCode cleanly
+Type "/exit"
+Enter
+Sleep 2s
