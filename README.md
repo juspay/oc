@@ -5,6 +5,8 @@ One-click coding agents for Juspay.
 > [!IMPORTANT]
 > This flake is for **Juspay employees only**. It provides pre-configured coding agents with Juspay's internal LLM API.
 
+Currently supports **[OpenCode](https://opencode.ai/)** only. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and other agents are coming soon.
+
 <figure>
 <img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="coding-agents/opencode/demo/demo.gif" />
 <figcaption>OpenCode running in the terminal with Juspay's LLM (<code>just demo</code> to regenerate)</figcaption>
@@ -99,11 +101,13 @@ See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 ## Repo Structure
 
 ```
-├── .agents/                  # nix-agent-wire autoWire layout (skills, commands, etc.)
-├── juspay/                   # shared Juspay LLM config (provider, models)
+├── .agents/                  # Agent configuration (nix-agent-wire autoWire layout)
+│   └── skills/               # AI skills — bundled into oneclick, wired via home-manager
 ├── coding-agents/
-│   └── opencode/             # OpenCode agent (packages, modules, test, demo)
+│   └── opencode/             # OpenCode (packages, modules, test, demo)
 ```
+
+The [`.agents/`](.agents/) directory uses the [nix-agent-wire](https://github.com/srid/nix-agent-wire) convention. It currently contains [skills](.agents/skills/); commands, MCP servers, and other agent configuration will follow.
 
 ## Related
 
