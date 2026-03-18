@@ -98,19 +98,24 @@ This starts a local server and opens OpenCode in your default browser. Sessions 
 
 See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 
+## Agent Configuration (`.agents/`)
+
+The [`.agents/`](.agents/) directory contains shared AI agent configuration using the [nix-agent-wire](https://github.com/srid/nix-agent-wire) convention. Currently ships [skills](.agents/skills/); commands, MCP servers, and other agent configuration will follow.
+
+This configuration is wired into agents via `autoWire.dirs` (home-manager) or bundled directly (oneclick packages).
+
 ## Repo Structure
 
 ```
-├── .agents/                  # Agent configuration (nix-agent-wire autoWire layout)
-│   └── skills/               # AI skills — bundled into oneclick, wired via home-manager
+├── .agents/                  # Shared agent configuration (skills, commands, MCP, etc.)
+│   └── skills/               # AI skills
 ├── coding-agents/
-│   └── opencode/             # OpenCode (packages, modules, test, demo)
+│   └── opencode/             # OpenCode one-click setup (packages, modules, test, demo)
 ```
-
-The [`.agents/`](.agents/) directory uses the [nix-agent-wire](https://github.com/srid/nix-agent-wire) convention. It currently contains [skills](.agents/skills/); commands, MCP servers, and other agent configuration will follow.
 
 ## Related
 
 - [OpenCode Documentation](https://opencode.ai/docs/) — Full docs on usage, configuration, and providers
 - [OpenCode GitHub](https://github.com/anomalyco/opencode) — The upstream OpenCode project
 - [llm-agents.nix](https://github.com/numtide/llm-agents.nix) — The upstream Nix packaging that this flake builds on
+- [nix-agent-wire](https://github.com/srid/nix-agent-wire) — Wires `.agents/` content into coding agents via Nix
