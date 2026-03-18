@@ -34,6 +34,10 @@ Or run a specific variant directly:
 
 The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick` or `init` variants.
 
+### Daily Updates
+
+This flake's `flake.lock` (specifically the [llm-agents.nix](https://github.com/numtide/llm-agents.nix) input) is **auto-updated daily** via CI, so you always get the latest OpenCode release. If pinning via `flake.lock` in your own flake, run `nix flake update oc` to pull the latest.
+
 ### With home-manager
 
 > [!NOTE]
@@ -72,7 +76,7 @@ modules = [
 
 The `JUSPAY_API_KEY` environment variable must be set when running OpenCode.
 
-To update opencode to the latest version (the flake.lock is auto-updated daily on this repo):
+To update opencode to the latest version:
 
 ```bash
 nix flake update oc
