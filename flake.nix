@@ -32,11 +32,18 @@
           default = pkgs.callPackage ./coding-agents/opencode/packages/default.nix {
             opencode-init = self'.packages.init;
             opencode-oneclick = self'.packages.oneclick;
+            opencode-skills = self'.packages.skills;
           };
           opencode = pkgs.opencode;
           init = pkgs.callPackage ./coding-agents/opencode/packages/init.nix { configFile = pkgs.callPackage ./coding-agents/opencode/packages/config.nix { }; };
           oneclick = pkgs.callPackage ./coding-agents/opencode/packages/oneclick.nix {
             configFile = pkgs.callPackage ./coding-agents/opencode/packages/config.nix { };
+            skillsSrc = self + "/.agents";
+          };
+          skills = pkgs.callPackage ./coding-agents/opencode/packages/skills.nix {
+            configFile = pkgs.callPackage ./coding-agents/opencode/packages/config.nix {
+              settings = import ./coding-agents/opencode/settings-base.nix;
+            };
             skillsSrc = self + "/.agents";
           };
         };
@@ -46,6 +53,7 @@
           opencode.program = lib.getExe' self'.packages.opencode "opencode";
           init.program = lib.getExe' self'.packages.init "opencode";
           oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
+          skills.program = lib.getExe' self'.packages.skills "opencode";
         };
       };
 
@@ -54,6 +62,14 @@
         with-skills = { ... }: {
           imports = [
             self.homeModules.default
+            nix-agent-wire.homeModules.opencode
+          ];
+          programs.opencode.autoWire.dirs = [ (self + "/.agents") ];
+        };
+        base = import ./coding-agents/opencode/modules/base.nix;
+        base-with-skills = { ... }: {
+          imports = [
+            self.homeModules.base
             nix-agent-wire.homeModules.opencode
           ];
           programs.opencode.autoWire.dirs = [ (self + "/.agents") ];
