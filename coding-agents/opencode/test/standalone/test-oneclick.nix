@@ -9,7 +9,7 @@
     };
 
     environment.systemPackages = [
-      oc.packages.${pkgs.stdenv.hostPlatform.system}.oneclick
+      oc.packages.${pkgs.stdenv.hostPlatform.system}.opencode-juspay-oneclick
     ];
 
     environment.variables.JUSPAY_API_KEY = "test-api-key";

@@ -9,7 +9,7 @@
     };
 
     environment.systemPackages = [
-      oc.packages.${pkgs.stdenv.hostPlatform.system}.init
+      oc.packages.${pkgs.stdenv.hostPlatform.system}.opencode-juspay
     ];
 
     system.stateVersion = "24.05";

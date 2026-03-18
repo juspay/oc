@@ -30,11 +30,12 @@ Or run a specific variant directly:
 
 | Variant | Command | Description |
 |---|---|---|
-| `oneclick` | `nix run github:juspay/oc#oneclick` | Ready to go with Juspay config and [skills](.agents/skills/) bundled |
-| `init` | `nix run github:juspay/oc#init` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
-| `opencode` | `nix run github:juspay/oc#opencode` | Plain OpenCode, no Juspay config |
+| `opencode-juspay-oneclick` | `nix run github:juspay/oc#opencode-juspay-oneclick` | Juspay config and [`.agents/`](.agents/) bundled |
+| `opencode-oneclick` | `nix run github:juspay/oc#opencode-oneclick` | [`.agents/`](.agents/) bundled, bring your own provider (e.g. Claude Max) |
+| `opencode-juspay` | `nix run github:juspay/oc#opencode-juspay` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
+| `opencode` | `nix run github:juspay/oc#opencode` | Plain OpenCode, no config |
 
-The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick` or `init` variants.
+The `JUSPAY_API_KEY` environment variable must be set when running the `opencode-juspay*` variants.
 
 ### Daily Updates
 

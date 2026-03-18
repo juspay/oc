@@ -1,20 +1,20 @@
-{ pkgs, lib, opencode, opencode-init, opencode-oneclick, opencode-skills }:
+{ pkgs, lib, opencode, opencode-juspay, opencode-juspay-oneclick, opencode-oneclick }:
 pkgs.writeShellApplication {
   name = "opencode";
   runtimeInputs = [ pkgs.gum ];
   text = ''
     choice=$(gum choose --header "Choose OpenCode variant:" \
-      "oneclick  — Ready to go with Juspay config and skills bundled" \
-      "skills    — Skills bundled, bring your own provider (e.g. Claude Max)" \
-      "init      — Creates editable Juspay config at ~/.config/opencode/" \
-      "opencode  — Plain OpenCode, no config")
+      "opencode-juspay-oneclick  — Juspay config and .agents/ bundled" \
+      "opencode-oneclick         — .agents/ bundled, bring your own provider" \
+      "opencode-juspay           — Creates editable Juspay config at ~/.config/opencode/" \
+      "opencode                  — Plain OpenCode, no config")
 
     case "$choice" in
-      oneclick*) exec ${lib.getExe' opencode-oneclick "opencode"} "$@" ;;
-      skills*)   exec ${lib.getExe' opencode-skills "opencode"} "$@" ;;
-      init*)     exec ${lib.getExe' opencode-init "opencode"} "$@" ;;
-      opencode*) exec ${lib.getExe' opencode "opencode"} "$@" ;;
-      *)         echo "No selection made."; exit 1 ;;
+      opencode-juspay-oneclick*) exec ${lib.getExe' opencode-juspay-oneclick "opencode"} "$@" ;;
+      opencode-oneclick*)        exec ${lib.getExe' opencode-oneclick "opencode"} "$@" ;;
+      opencode-juspay*)          exec ${lib.getExe' opencode-juspay "opencode"} "$@" ;;
+      opencode*)                 exec ${lib.getExe' opencode "opencode"} "$@" ;;
+      *)                         echo "No selection made."; exit 1 ;;
     esac
   '';
 }
