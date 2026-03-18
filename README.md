@@ -8,7 +8,7 @@ AI agent configuration and one-click coding agents for Juspay.
 Currently supports **[OpenCode](https://opencode.ai/)** only. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and other agents are coming soon.
 
 <figure>
-<img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="coding-agents/opencode/demo/demo.gif" />
+<img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="demo/demo.gif" />
 <figcaption>OpenCode running in the terminal with Juspay's LLM (<code>just demo</code> to regenerate)</figcaption>
 </figure>
 
