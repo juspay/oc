@@ -1,4 +1,4 @@
-# oc
+# AI
 
 AI agent configuration and one-click coding agents for Juspay.
 
