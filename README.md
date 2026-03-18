@@ -1,9 +1,9 @@
-# OpenCode Nix
+# oc
 
-One-click [OpenCode](https://opencode.ai/) for Juspay.
+One-click [OpenCode](https://opencode.ai/) and [Claude Code](https://claude.ai/code) for Juspay.
 
 > [!IMPORTANT]
-> This flake is for **Juspay employees only**. It provides pre-configured OpenCode with Juspay's internal LLM API.
+> This flake is for **Juspay employees only**. It provides pre-configured OpenCode and Claude Code with Juspay's internal LLM API.
 
 <figure>
 <img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="doc/demo/demo.gif" />
@@ -13,7 +13,7 @@ One-click [OpenCode](https://opencode.ai/) for Juspay.
 ## Prerequisites
 
 - **Nix** — Install via [nixone](https://juspay.github.io/nixone/), which also sets up [home-manager](https://github.com/juspay/nixos-unified-template) in `~/.config/home-manager`. New to Nix? See the [Nix First Steps](https://nixos.asia/en/nix-first) tutorial.
-- **`JUSPAY_API_KEY`** — Create one at [grid.ai.juspay.net/dashboard](https://grid.ai.juspay.net/dashboard) (requires VPN to create, but **not** to use OpenCode afterwards)
+- **`JUSPAY_API_KEY`** — Create one at [grid.ai.juspay.net/dashboard](https://grid.ai.juspay.net/dashboard) (requires VPN to create, but **not** to use the tools afterwards)
 
 ## Quick Start
 
@@ -26,13 +26,22 @@ nix run github:juspay/oc
 
 Or run a specific variant directly:
 
+### OpenCode
+
 | Variant | Command | Description |
 |---|---|---|
 | `oneclick` | `nix run github:juspay/oc#oneclick` | Ready to go with Juspay config and [skills](https://opencode.ai/docs/skills/) bundled from [juspay/skills](https://github.com/juspay/skills) |
 | `init` | `nix run github:juspay/oc#init` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
 | `opencode` | `nix run github:juspay/oc#opencode` | Plain OpenCode, no Juspay config |
 
-The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick` or `init` variants.
+### Claude Code
+
+| Variant | Command | Description |
+|---|---|---|
+| `claude-code-oneclick` | `nix run github:juspay/oc#claude-code-oneclick` | Claude Code with Juspay LLM proxy pre-configured |
+| `claude-code` | `nix run github:juspay/oc#claude-code` | Plain Claude Code, no Juspay config |
+
+The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick`, `init`, or `claude-code-oneclick` variants.
 
 ### With home-manager
 
@@ -72,6 +81,26 @@ modules = [
 
 The `JUSPAY_API_KEY` environment variable must be set when running OpenCode.
 
+#### Claude Code
+
+Basic setup:
+
+```nix
+modules = [
+  inputs.oc.homeModules.claude-code
+];
+```
+
+With skills:
+
+```nix
+modules = [
+  inputs.oc.homeModules.claude-code-with-skills
+];
+```
+
+The `ANTHROPIC_AUTH_TOKEN` environment variable must be set to your `JUSPAY_API_KEY` when running Claude Code.
+
 To update opencode to the latest version (the flake.lock is auto-updated daily on this repo):
 
 ```bash
@@ -96,5 +125,7 @@ See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 
 - [OpenCode Documentation](https://opencode.ai/docs/) — Full docs on usage, configuration, and providers
 - [OpenCode GitHub](https://github.com/anomalyco/opencode) — The upstream OpenCode project
+- [Claude Code](https://claude.ai/code) — Anthropic's Claude Code CLI
 - [llm-agents.nix](https://github.com/numtide/llm-agents.nix) — The upstream Nix packaging that this flake builds on
+- [nix-agent-wire](https://github.com/srid/nix-agent-wire) — Nix autowiring for LLM agents (powers the home-manager modules)
 - [juspay/skills](https://github.com/juspay/skills) — Juspay's AI skills

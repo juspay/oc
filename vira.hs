@@ -12,8 +12,10 @@
     , build.flakes =
         [ "."
         , "./doc/demo" { overrideInputs = [("oc", ".")] }
+        , "./doc/demo-claude-code" { overrideInputs = [("oc", ".")] }
         , "./test/home-manager" { overrideInputs = [("oc", ".")] }
         , "./test/home-manager-with-skills" { overrideInputs = [("oc", ".")] }
+        , "./test/home-manager-claude-code" { overrideInputs = [("oc", ".")] }
         , "./test/standalone" { overrideInputs = [("oc", ".")] }
         ]
     , signoff.enable = True

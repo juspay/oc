@@ -1,5 +1,5 @@
 {
-  description = "One-click OpenCode for Juspay";
+  description = "One-click OpenCode & Claude Code for Juspay";
 
   nixConfig = {
     extra-substituters = "https://cache.nixos.asia/oss";
@@ -27,8 +27,11 @@
           config.allowUnfree = true;
           overlays = [
             llm-agents.overlays.default
-            # Expose opencode directly for callPackage to auto-fill the argument
-            (final: prev: { opencode = prev.llm-agents.opencode; })
+            # Expose agent packages directly for callPackage to auto-fill arguments
+            (final: prev: {
+              opencode = prev.llm-agents.opencode;
+              claude-code = prev.llm-agents.claude-code;
+            })
           ];
         };
 
@@ -36,11 +39,16 @@
           default = pkgs.callPackage ./opencode/packages/default.nix {
             opencode-init = self'.packages.init;
             opencode-oneclick = self'.packages.oneclick;
+            claude-code-oneclick = self'.packages.claude-code-oneclick;
           };
           opencode = pkgs.opencode;
           init = pkgs.callPackage ./opencode/packages/init.nix { configFile = pkgs.callPackage ./opencode/packages/config.nix { }; };
           oneclick = pkgs.callPackage ./opencode/packages/oneclick.nix {
             configFile = pkgs.callPackage ./opencode/packages/config.nix { };
+            skillsSrc = inputs.skills;
+          };
+          claude-code = pkgs.claude-code;
+          claude-code-oneclick = pkgs.callPackage ./claude-code/packages/oneclick.nix {
             skillsSrc = inputs.skills;
           };
         };
@@ -50,6 +58,8 @@
           opencode.program = lib.getExe' self'.packages.opencode "opencode";
           init.program = lib.getExe' self'.packages.init "opencode";
           oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
+          claude-code.program = lib.getExe self'.packages.claude-code;
+          claude-code-oneclick.program = lib.getExe' self'.packages.claude-code-oneclick "claude";
         };
       };
 
@@ -61,6 +71,14 @@
             nix-agent-wire.homeModules.opencode
           ];
           programs.opencode.autoWire.dirs = [ skills ];
+        };
+        claude-code = import ./claude-code/modules;
+        claude-code-with-skills = { ... }: {
+          imports = [
+            self.homeModules.claude-code
+            nix-agent-wire.homeModules.claude-code
+          ];
+          programs.claude-code.autoWire.dirs = [ skills ];
         };
       };
     };
