@@ -30,8 +30,8 @@ Or run a specific variant directly:
 
 | Variant | Command | Description |
 |---|---|---|
-| `oneclick` | `nix run github:juspay/oc#oneclick` | Ready to go with Juspay config and [skills](https://opencode.ai/docs/skills/) bundled from [juspay/skills](https://github.com/juspay/skills) |
-| `init` | `nix run github:juspay/oc#init` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
+| `opencode-oneclick` | `nix run github:juspay/oc#opencode-oneclick` | Ready to go with Juspay config and [skills](https://opencode.ai/docs/skills/) bundled from [juspay/skills](https://github.com/juspay/skills) |
+| `opencode-init` | `nix run github:juspay/oc#opencode-init` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
 | `opencode` | `nix run github:juspay/oc#opencode` | Plain OpenCode, no Juspay config |
 
 ### Claude Code
@@ -41,7 +41,7 @@ Or run a specific variant directly:
 | `claude-code-oneclick` | `nix run github:juspay/oc#claude-code-oneclick` | Claude Code with Juspay LLM proxy pre-configured |
 | `claude-code` | `nix run github:juspay/oc#claude-code` | Plain Claude Code, no Juspay config |
 
-The `JUSPAY_API_KEY` environment variable must be set when running the `oneclick`, `init`, or `claude-code-oneclick` variants.
+The `JUSPAY_API_KEY` environment variable must be set when running the `opencode-oneclick`, `opencode-init`, or `claude-code-oneclick` variants.
 
 ### With home-manager
 

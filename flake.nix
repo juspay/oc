@@ -37,13 +37,13 @@
 
         packages = {
           default = pkgs.callPackage ./opencode/packages/default.nix {
-            opencode-init = self'.packages.init;
-            opencode-oneclick = self'.packages.oneclick;
+            opencode-init = self'.packages.opencode-init;
+            opencode-oneclick = self'.packages.opencode-oneclick;
             claude-code-oneclick = self'.packages.claude-code-oneclick;
           };
           opencode = pkgs.opencode;
-          init = pkgs.callPackage ./opencode/packages/init.nix { configFile = pkgs.callPackage ./opencode/packages/config.nix { }; };
-          oneclick = pkgs.callPackage ./opencode/packages/oneclick.nix {
+          opencode-init = pkgs.callPackage ./opencode/packages/init.nix { configFile = pkgs.callPackage ./opencode/packages/config.nix { }; };
+          opencode-oneclick = pkgs.callPackage ./opencode/packages/oneclick.nix {
             configFile = pkgs.callPackage ./opencode/packages/config.nix { };
             skillsSrc = inputs.skills;
           };
@@ -56,8 +56,8 @@
         apps = {
           default.program = lib.getExe' self'.packages.default "opencode";
           opencode.program = lib.getExe' self'.packages.opencode "opencode";
-          init.program = lib.getExe' self'.packages.init "opencode";
-          oneclick.program = lib.getExe' self'.packages.oneclick "opencode";
+          opencode-init.program = lib.getExe' self'.packages.opencode-init "opencode";
+          opencode-oneclick.program = lib.getExe' self'.packages.opencode-oneclick "opencode";
           claude-code.program = lib.getExe self'.packages.claude-code;
           claude-code-oneclick.program = lib.getExe' self'.packages.claude-code-oneclick "claude";
         };
