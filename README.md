@@ -1,9 +1,9 @@
 # oc
 
-One-click coding agents for Juspay.
+AI agent configuration and one-click coding agents for Juspay.
 
 > [!IMPORTANT]
-> This flake is for **Juspay employees only**. It provides pre-configured coding agents with Juspay's internal LLM API.
+> This flake is for **Juspay employees only**. It provides shared AI agent configuration (skills, commands, MCP servers) and pre-configured coding agents with Juspay's internal LLM API.
 
 Currently supports **[OpenCode](https://opencode.ai/)** only. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and other agents are coming soon.
 
