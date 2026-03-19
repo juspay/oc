@@ -13,6 +13,7 @@
     in {
       checks.${system} = {
         claude-code-oneclick = pkgs.testers.runNixOSTest (import ./test-oneclick.nix { inherit oc; });
+        claude-code-juspay-oneclick = pkgs.testers.runNixOSTest (import ./test-juspay-oneclick.nix { inherit oc; });
       };
     };
 }

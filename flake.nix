@@ -33,7 +33,7 @@
 
         packages = {
           default = pkgs.callPackage ./coding-agents/opencode/packages/default.nix {
-            inherit (self'.packages) opencode-juspay-editable opencode-juspay-oneclick opencode-oneclick claude-code claude-code-oneclick;
+            inherit (self'.packages) opencode-juspay-editable opencode-juspay-oneclick opencode-oneclick claude-code claude-code-oneclick claude-code-juspay-oneclick;
           };
           opencode = pkgs.opencode;
           opencode-juspay-editable = pkgs.callPackage ./coding-agents/opencode/packages/juspay-editable.nix {
@@ -53,6 +53,9 @@
           claude-code-oneclick = pkgs.callPackage ./coding-agents/claude-code/packages/oneclick.nix {
             skillsSrc = self + "/.agents";
           };
+          claude-code-juspay-oneclick = pkgs.callPackage ./coding-agents/claude-code/packages/juspay-oneclick.nix {
+            skillsSrc = self + "/.agents";
+          };
         };
 
         apps = {
@@ -63,6 +66,7 @@
           opencode-oneclick.program = lib.getExe' self'.packages.opencode-oneclick "opencode";
           claude-code.program = lib.getExe' self'.packages.claude-code "claude";
           claude-code-oneclick.program = lib.getExe' self'.packages.claude-code-oneclick "claude";
+          claude-code-juspay-oneclick.program = lib.getExe' self'.packages.claude-code-juspay-oneclick "claude";
         };
       };
 
@@ -83,6 +87,13 @@
         claude-code = { ... }: {
           imports = [
             (import ./coding-agents/claude-code/home)
+            nix-agent-wire.homeModules.claude-code
+          ];
+        };
+        claude-code-juspay = { ... }: {
+          imports = [
+            (import ./coding-agents/claude-code/home)
+            (import ./coding-agents/claude-code/home/juspay.nix)
             nix-agent-wire.homeModules.claude-code
           ];
         };

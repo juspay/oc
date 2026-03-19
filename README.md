@@ -28,10 +28,11 @@ This launches an interactive selector. Or run a specific variant directly:
 | `opencode-oneclick` | `nix run github:juspay/AI#opencode-oneclick` | [`.agents/`](.agents/) bundled, bring your own provider (e.g. Claude Max) |
 | `opencode-juspay-editable` | `nix run github:juspay/AI#opencode-juspay-editable` | Creates editable Juspay config at `~/.config/opencode/opencode.json` ([customize](https://opencode.ai/docs/config/)) |
 | `opencode` | `nix run github:juspay/AI#opencode` | Plain OpenCode, no config |
-| `claude-code-oneclick` | `nix run github:juspay/AI#claude-code-oneclick` | [`.agents/`](.agents/) skills bundled into `~/.claude/skills/` |
+| `claude-code-juspay-oneclick` | `nix run github:juspay/AI#claude-code-juspay-oneclick` | Juspay provider and [`.agents/`](.agents/) skills bundled |
+| `claude-code-oneclick` | `nix run github:juspay/AI#claude-code-oneclick` | [`.agents/`](.agents/) skills bundled, bring your own provider |
 | `claude-code` | `nix run github:juspay/AI#claude-code` | Plain Claude Code, no config |
 
-The `JUSPAY_API_KEY` environment variable must be set when running the `opencode-juspay-*` variants.
+The `JUSPAY_API_KEY` environment variable must be set when running the `*-juspay-*` variants.
 
 ### Daily Updates
 
@@ -74,6 +75,19 @@ modules = [
 ```
 
 #### Claude Code
+
+With Juspay provider:
+
+```nix
+modules = [
+  inputs.AI.homeModules.claude-code-juspay
+  {
+    programs.claude-code.package = inputs.AI.packages.x86_64-linux.claude-code;
+  }
+];
+```
+
+Without Juspay:
 
 ```nix
 modules = [
