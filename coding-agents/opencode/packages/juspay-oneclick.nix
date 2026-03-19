@@ -1,6 +1,6 @@
 { pkgs, lib, opencode, configFile, skillsSrc }:
 let
-  ocLib = import ../lib.nix;
+  ocLib = import ./lib.nix;
   configDir = pkgs.runCommand "opencode-config-dir" { } ''
     mkdir -p $out
     ln -s ${configFile} $out/opencode.json

@@ -1,6 +1,6 @@
 { pkgs, lib, opencode, configFile }:
 let
-  ocLib = import ../lib.nix;
+  ocLib = import ./lib.nix;
 in
 pkgs.runCommand "opencode-juspay-editable" {
   nativeBuildInputs = [ pkgs.makeWrapper ];
