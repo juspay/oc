@@ -11,7 +11,7 @@ Currently supports **[OpenCode](https://opencode.ai/)** only. [Claude Code](http
 
 ## Prerequisites
 
-- **Nix** — Install via [nixone](https://juspay.github.io/nixone/), which also sets up [home-manager](https://github.com/juspay/nixos-unified-template) in `~/.config/home-manager`. New to Nix? See the [Nix First Steps](https://nixos.asia/en/nix-first) tutorial.
+- **Nix** — Install via [the Nix installer](https://nixos.asia/en/install), which also sets up [home-manager](https://github.com/juspay/nixos-unified-template) in `~/.config/home-manager`. New to Nix? See the [Nix First Steps](https://nixos.asia/en/nix-first) tutorial.
 - **`JUSPAY_API_KEY`** *(Juspay employees only)* — Create one at [grid.ai.juspay.net/dashboard](https://grid.ai.juspay.net/dashboard) (requires VPN to create, but **not** to use afterwards). Not needed for non-Juspay variants.
 
 ## Quick Start
@@ -40,7 +40,7 @@ This flake's `flake.lock` (specifically the [llm-agents.nix](https://github.com/
 ### With home-manager
 
 > [!NOTE]
-> If you installed Nix via [nixone](https://juspay.github.io/nixone/), home-manager is already configured at `~/.config/home-manager`. Otherwise, see [nixos-unified-template](https://github.com/juspay/nixos-unified-template) for getting started with home-manager.
+> If you installed Nix via [the Nix installer](https://nixos.asia/en/install), home-manager is already configured at `~/.config/home-manager`. Otherwise, see [nixos-unified-template](https://github.com/juspay/nixos-unified-template) for getting started with home-manager.
 
 With Juspay provider (`JUSPAY_API_KEY` must be set):
 
