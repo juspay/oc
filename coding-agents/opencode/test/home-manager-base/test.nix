@@ -60,7 +60,7 @@
         raise Exception("autoupdate not found in config")
 
     # Verify skills are wired via nix-agent-wire
-    skills_dir = "/home/testuser/.config/opencode/skill"
+    skills_dir = "/home/testuser/.config/opencode/skills"
 
     machine.succeed(f"test -f {skills_dir}/nix-flake/SKILL.md")
     print("✅ nix-flake skill exists")
