@@ -1,11 +1,11 @@
-rec {
-  # Shared init script snippet that checks for JUSPAY_API_KEY.
-  # Skips the check when --version or --help is passed.
+let
+  # Checks for JUSPAY_API_KEY, skipping for --version/--help.
+  # Uses ${..:-} for nounset (set -u) compatibility.
   checkApiKey = ''
-    case " $OPENCODE_WRAPPER_ARGS " in
+    case " $* " in
       *" --version "* | *" --help "* | *" -v "* | *" -h "*) ;;
       *)
-        if [ -z "$JUSPAY_API_KEY" ]; then
+        if [ -z "''${JUSPAY_API_KEY:-}" ]; then
           echo "" >&2
           echo "  Error: JUSPAY_API_KEY environment variable is not set." >&2
           echo "" >&2
@@ -20,9 +20,10 @@ rec {
         ;;
     esac
   '';
+in
+{
+  inherit checkApiKey;
 
-  # Init script that checks for JUSPAY_API_KEY and copies the config file.
-  # Takes configFile as an argument (the Nix store path to the config).
   mkInitScript = configFile: ''
     ${checkApiKey}
     config_dir="$HOME/.config/opencode"
@@ -33,5 +34,11 @@ rec {
       chmod u+w "$config_file"
     fi
   '';
-}
 
+  mkConfigDir = { pkgs, configFile, skillsSrc }:
+    pkgs.runCommand "opencode-config-dir" { } ''
+      mkdir -p $out
+      ln -s ${configFile} $out/opencode.json
+      ln -s ${skillsSrc}/skills $out/skills
+    '';
+}
