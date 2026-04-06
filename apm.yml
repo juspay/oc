@@ -6,4 +6,5 @@ dependencies:
   apm:
   - srid/agency#master
   mcp: []
+target: claude
 scripts: {}

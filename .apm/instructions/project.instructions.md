@@ -1,5 +1,6 @@
 ---
 description: Project-specific build verification and CI instructions
+applyTo: "**"
 ---
 
 When making changes to this flake, quickly verify the build works:
