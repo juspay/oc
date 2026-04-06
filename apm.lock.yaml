@@ -1,24 +1,32 @@
 lockfile_version: '1'
-generated_at: '2026-04-06T23:06:34.498707+00:00'
+generated_at: '2026-04-06T23:15:54.517801+00:00'
 apm_version: 0.8.11
 dependencies:
 - repo_url: _local/agent
   package_type: apm_package
   deployed_files:
-  - .claude/rules/project.md
+  - .github/instructions/project.instructions.md
   source: local
   local_path: ./agent
 - repo_url: srid/agency
   host: github.com
-  resolved_commit: 0ba04ae27aa8418030aad02d982bf4581dce1292
+  resolved_commit: fdcd6901c9c1c476a9dee9d3afc95b533286942b
   resolved_ref: master
   package_type: apm_package
   deployed_files:
   - .claude/commands/do.md
   - .claude/commands/talk.md
-  - .claude/hooks/agency/scripts/execute-stop-guard.sh
+  - .claude/hooks/agency/scripts/do-stop-guard.sh
   - .claude/rules/apm-sources.md
   - .claude/skills/code-police
   - .claude/skills/github-pr
   - .claude/skills/hickey
-  content_hash: sha256:48248a0bfdc2704b0d41f74acfdb14201f1fd5adde3b6daf3a1ba80ec015bffd
+  - .github/hooks/agency-do-stop-guard.json
+  - .github/hooks/scripts/agency/scripts/do-stop-guard.sh
+  - .github/instructions/apm-sources.instructions.md
+  - .github/prompts/do.prompt.md
+  - .github/prompts/talk.prompt.md
+  - .github/skills/code-police
+  - .github/skills/github-pr
+  - .github/skills/hickey
+  content_hash: sha256:ea3ea7a0c80263561a765dff41e46f5bab4a2f80be42f6e37ebce104082adc77
