@@ -1,6 +1,6 @@
-name: female-stand
+name: AI
 version: 1.0.0
-description: APM project for female-stand
+description: Nix flake for AI coding agents
 author: Sridhar Ratnakumar
 dependencies:
   apm:
