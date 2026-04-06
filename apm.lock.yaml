@@ -1,11 +1,9 @@
 lockfile_version: '1'
-generated_at: '2026-04-06T23:15:54.517801+00:00'
+generated_at: '2026-04-06T23:18:05.965701+00:00'
 apm_version: 0.8.11
 dependencies:
 - repo_url: _local/agent
   package_type: apm_package
-  deployed_files:
-  - .github/instructions/project.instructions.md
   source: local
   local_path: ./agent
 - repo_url: srid/agency
@@ -21,12 +19,4 @@ dependencies:
   - .claude/skills/code-police
   - .claude/skills/github-pr
   - .claude/skills/hickey
-  - .github/hooks/agency-do-stop-guard.json
-  - .github/hooks/scripts/agency/scripts/do-stop-guard.sh
-  - .github/instructions/apm-sources.instructions.md
-  - .github/prompts/do.prompt.md
-  - .github/prompts/talk.prompt.md
-  - .github/skills/code-police
-  - .github/skills/github-pr
-  - .github/skills/hickey
   content_hash: sha256:ea3ea7a0c80263561a765dff41e46f5bab4a2f80be42f6e37ebce104082adc77
