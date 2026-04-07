@@ -6,7 +6,7 @@ Currently supports **[OpenCode](https://opencode.ai/)** only. Skills are sourced
 
 - [juspay/skills](https://github.com/juspay/skills) — Shared AI agent skills
 - [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's official skills
-- [srid/agency](https://github.com/srid/agency) — Coding agent configuration & workflows
+- [srid/agency](https://github.com/srid/agency) — Near-autonomous workflow for coding agents
 
 <figure>
 <img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="demo/demo.gif" />
