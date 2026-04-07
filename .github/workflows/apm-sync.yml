@@ -5,19 +5,22 @@ on:
   push:
     branches: [main]
 
+env:
+  APM: uvx --from git+https://github.com/microsoft/apm@v0.8.10 apm
+
 jobs:
   apm-sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: astral-sh/setup-uv@v6
 
       - name: Regenerate vendored APM output from scratch
         run: |
           rm -rf .claude/ .opencode/
-          nix run github:numtide/llm-agents.nix#apm -- install --force -t claude
-          nix run github:numtide/llm-agents.nix#apm -- install --force -t opencode
+          $APM install --force -t claude
+          $APM install --force -t opencode
 
       - name: Check for drift
         run: |

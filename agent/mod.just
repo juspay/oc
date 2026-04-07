@@ -1,7 +1,7 @@
 # Run recipes from project root, not agents/
 set working-directory := '..'
 
-apm_cmd := "nix run github:numtide/llm-agents.nix#apm --"
+apm_cmd := "uvx --from git+https://github.com/microsoft/apm@v0.8.10 apm"
 ai_agent := env('AI_AGENT', 'claude')
 
 # Regenerate vendored APM output (.claude/ and .opencode/) from scratch
