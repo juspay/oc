@@ -11,11 +11,8 @@ apm-vendor:
     {{ apm_cmd }} install --force -t opencode
 
 # Update APM dependencies to latest, then re-vendor
-update:
+update: && apm-vendor
     {{ apm_cmd }} install --update --force -t claude
-    rm -rf .claude/ .opencode/
-    {{ apm_cmd }} install --force -t claude
-    {{ apm_cmd }} install --force -t opencode
 
 # Launch coding agent (AI_AGENT overrides default)
 [default]
