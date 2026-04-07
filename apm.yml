@@ -5,6 +5,5 @@ author: Sridhar Ratnakumar
 dependencies:
   apm:
   - srid/agency#master
-  - ./agent
   mcp: []
 scripts: {}
