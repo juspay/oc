@@ -51,11 +51,12 @@ See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 
 ## Coding Agent Setup
 
-This repo uses [APM](https://microsoft.github.io/apm/) (via [srid/agency](https://github.com/srid/agency)) for coding agent configuration. To set up your coding agent environment:
+This repo uses [APM](https://microsoft.github.io/apm/) (via [srid/agency](https://github.com/srid/agency)) for coding agent configuration. `.claude/` and `.opencode/` are **vendored** — committed to git and kept in sync by a CI check (`apm-sync` workflow).
 
 ```bash
-just agent       # deploy APM primitives + launch agent (default: claude)
-just agent::apm  # deploy only, don't launch
+just agent                # launch agent (default: claude)
+just agent::apm-vendor    # regenerate vendored .claude/ and .opencode/
+just agent::update        # update apm deps to latest, then re-vendor
 ```
 
 Override the agent with `AI_AGENT`:
@@ -65,12 +66,12 @@ AI_AGENT=opencode just agent
 AI_AGENT='claude --dangerously-skip-permissions' just agent
 ```
 
-Project instructions live in `agent/.apm/instructions/` and deploy to `.claude/rules/` (or equivalent) via `apm install`.
-
 ## Repo Structure
 
 ```
-├── agent/                    # APM local package (project instructions, mod.just)
+├── .claude/                  # Vendored APM output for Claude Code
+├── .opencode/                # Vendored APM output for OpenCode
+├── agent/                    # Justfile recipes for apm and agent launch
 ├── coding-agents/
 │   └── opencode/             # OpenCode packages, settings, tests
 ├── demo/                     # Demo screencast infrastructure
