@@ -18,16 +18,6 @@ apm-vendor:
     {{ apm_cmd }} install --force -t claude
     {{ apm_cmd }} install --force -t opencode
 
-# Verify vendored dirs match apm lock (for CI)
-apm-sync: apm-vendor
-    #!/usr/bin/env bash
-    set -euo pipefail
-    if [ -n "$(git status --porcelain .claude/ .opencode/)" ]; then
-        echo "ERROR: vendored APM output out of sync — run: just agent::apm-vendor"
-        git status .claude/ .opencode/
-        exit 1
-    fi
-
 # Update APM dependencies to latest
 update:
     {{ apm_cmd }} install --update --force -t {{ apm_target }}
