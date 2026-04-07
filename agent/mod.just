@@ -11,11 +11,10 @@ apm_target := replace_regex(ai_agent, ' .*', '')
 apm:
     {{ apm_cmd }} install --force -t {{ apm_target }}
 
-# Regenerate all vendored APM output (.claude/ and .opencode/)
-# Pre-clean settings.json: apm hook integration is additive and duplicates
-# entries on re-install (https://github.com/microsoft/apm/issues/561)
+# Regenerate all vendored APM output (.claude/ and .opencode/) from scratch
+# Wipe first to catch orphan files not produced by current apm deps
 apm-vendor:
-    rm -f .claude/settings.json
+    rm -rf .claude/ .opencode/
     {{ apm_cmd }} install --force -t claude
     {{ apm_cmd }} install --force -t opencode
 

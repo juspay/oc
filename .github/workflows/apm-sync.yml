@@ -13,9 +13,9 @@ jobs:
 
       - uses: astral-sh/setup-uv@v6
 
-      - name: Regenerate vendored APM output
+      - name: Regenerate vendored APM output from scratch
         run: |
-          rm -f .claude/settings.json
+          rm -rf .claude/ .opencode/
           uvx --from git+https://github.com/microsoft/apm apm install --force -t claude
           uvx --from git+https://github.com/microsoft/apm apm install --force -t opencode
 
