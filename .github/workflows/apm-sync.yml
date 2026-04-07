@@ -1,0 +1,29 @@
+name: APM Sync Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  apm-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Regenerate vendored APM output
+        run: |
+          rm -f .claude/settings.json
+          nix run github:numtide/llm-agents.nix#apm -- install --force -t claude
+          nix run github:numtide/llm-agents.nix#apm -- install --force -t opencode
+
+      - name: Check for drift
+        run: |
+          if [ -n "$(git status --porcelain .claude/ .opencode/)" ]; then
+            echo "::error::Vendored APM output out of sync — run: just agent::apm-vendor"
+            git diff .claude/ .opencode/
+            git status .claude/ .opencode/
+            exit 1
+          fi

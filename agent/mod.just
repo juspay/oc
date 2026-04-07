@@ -12,7 +12,10 @@ apm:
     {{ apm_cmd }} install --force -t {{ apm_target }}
 
 # Regenerate all vendored APM output (.claude/ and .opencode/)
+# Pre-clean settings.json: apm hook integration is additive and duplicates
+# entries on re-install (https://github.com/microsoft/apm/issues/561)
 apm-vendor:
+    rm -f .claude/settings.json
     {{ apm_cmd }} install --force -t claude
     {{ apm_cmd }} install --force -t opencode
 
@@ -30,7 +33,7 @@ apm-sync: apm-vendor
 update:
     {{ apm_cmd }} install --update --force -t {{ apm_target }}
 
-# Install APM config and launch coding agent (AI_AGENT overrides default)
+# Launch coding agent (AI_AGENT overrides default)
 [default]
-run *args: apm
+run *args:
     {{ ai_agent }} {{ args }}
