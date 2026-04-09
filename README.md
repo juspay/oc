@@ -2,7 +2,11 @@
 
 One-click coding agents with Juspay's LLM configuration.
 
-Currently supports **[OpenCode](https://opencode.ai/)** only. Skills are sourced from [juspay/skills](https://github.com/juspay/skills).
+Currently supports **[OpenCode](https://opencode.ai/)** only. Skills are sourced from:
+
+- [juspay/skills](https://github.com/juspay/skills) — Shared AI agent skills
+- [anthropics/skills](https://github.com/anthropics/skills) — `frontend-design` skill
+- [srid/agency](https://github.com/srid/agency) — Near-autonomous workflow (`/do`, `/talk`) for coding agents
 
 <figure>
 <img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="demo/demo.gif" />
@@ -49,15 +53,35 @@ This starts a local server and opens OpenCode in your default browser. Sessions 
 
 See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 
+## Coding Agent Setup
+
+This repo uses [APM](https://microsoft.github.io/apm/) (via [srid/agency](https://github.com/srid/agency)) for coding agent configuration. `.claude/` and `.opencode/` are **vendored** — committed to git and kept in sync by a CI check (`apm-sync` workflow).
+
+```bash
+just agent                # launch agent (default: claude)
+just agent::apm-vendor    # regenerate vendored .claude/ and .opencode/
+just agent::update        # update apm deps to latest, then re-vendor
+```
+
+Override the agent with `AI_AGENT`:
+
+```bash
+AI_AGENT=opencode just agent
+AI_AGENT='claude --dangerously-skip-permissions' just agent
+```
+
 ## Repo Structure
 
 ```
+├── .claude/                  # Vendored APM output for Claude Code
+├── .opencode/                # Vendored APM output for OpenCode
+├── agent/                    # Justfile recipes for apm and agent launch
 ├── coding-agents/
 │   └── opencode/             # OpenCode packages, settings, tests
 ├── demo/                     # Demo screencast infrastructure
 ```
 
-Skills live in [juspay/skills](https://github.com/juspay/skills) and are pulled in as a flake input.
+Skills are vendored via APM into `.claude/` and `.opencode/` from the sources listed above.
 
 ## Related
 

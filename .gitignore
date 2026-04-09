@@ -8,3 +8,14 @@ result-*
 # Claude Code
 .worktrees/
 .execute-results.json
+
+
+# APM dependencies (source cache, not vendored output)
+apm_modules/
+
+# Lock file is broken with multiple targets (https://github.com/microsoft/apm/issues/529)
+# We pin commits in apm.yml and vendor the output directly.
+apm.lock.yaml
+
+# Do workflow
+.do-results.json
