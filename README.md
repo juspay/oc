@@ -6,7 +6,6 @@ Currently supports **[OpenCode](https://opencode.ai/)** only. Skills are sourced
 
 - [juspay/skills](https://github.com/juspay/skills) — Shared AI agent skills
 - [anthropics/skills](https://github.com/anthropics/skills) — `frontend-design` skill
-- [srid/agency](https://github.com/srid/agency) — Near-autonomous workflow (`/do`, `/talk`) for coding agents
 
 <figure>
 <img alt="OpenCode demo: variant selector, oneclick, and hello world prompt" src="demo/demo.gif" />
@@ -55,7 +54,7 @@ See the [OpenCode Web docs](https://opencode.ai/docs/web/) for more.
 
 ## Coding Agent Setup
 
-This repo uses [APM](https://microsoft.github.io/apm/) (via [srid/agency](https://github.com/srid/agency)) for coding agent configuration. `.claude/` and `.opencode/` are **vendored** — committed to git and kept in sync by a CI check (`apm-sync` workflow).
+This repo uses [APM](https://microsoft.github.io/apm/) for coding agent configuration. `.claude/` and `.opencode/` are **vendored** — committed to git and kept in sync by a CI check (`apm-sync` workflow).
 
 ```bash
 just agent                # launch agent (default: claude)
