@@ -1,6 +1,8 @@
 { pkgs }:
 let
   gumBin = "${pkgs.gum}/bin/gum";
+  mktempBin = "${pkgs.coreutils}/bin/mktemp";
+  lnBin = "${pkgs.coreutils}/bin/ln";
   # Ensures JUSPAY_API_KEY is set, prompting interactively if missing.
   # Always runs — we don't bypass based on args, so the user's positional
   # parameters reach opencode untouched (the prior `case " $* "` bypass
@@ -48,10 +50,13 @@ in
     fi
   '';
 
-  mkConfigDir = { pkgs, configFile, skillsDir }:
-    pkgs.runCommand "opencode-config-dir" { } ''
-      mkdir -p $out
-      ln -s ${configFile} $out/opencode.json
-      ln -s ${skillsDir} $out/skills
-    '';
+  # Sets up OPENCODE_CONFIG_DIR as a writable per-run temp directory containing
+  # opencode.json and skills/. Opencode writes a .gitignore into this dir, so
+  # it cannot be a /nix/store path (would EROFS).
+  setupConfigDir = { configFile, skillsDir }: ''
+    OPENCODE_CONFIG_DIR=$(${mktempBin} -d -t opencode-config-XXXXXX)
+    ${lnBin} -s ${configFile} "$OPENCODE_CONFIG_DIR/opencode.json"
+    ${lnBin} -s ${skillsDir} "$OPENCODE_CONFIG_DIR/skills"
+    export OPENCODE_CONFIG_DIR
+  '';
 }

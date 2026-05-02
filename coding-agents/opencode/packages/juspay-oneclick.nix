@@ -1,13 +1,12 @@
 { pkgs, lib, opencode, configFile, skillsDir }:
 let
   ocLib = import ./lib.nix { inherit pkgs; };
-  configDir = ocLib.mkConfigDir { inherit pkgs configFile skillsDir; };
 in
 pkgs.writeShellApplication {
   name = "opencode";
   text = ''
     ${ocLib.ensureApiKey}
-    export OPENCODE_CONFIG_DIR=${configDir}
+    ${ocLib.setupConfigDir { inherit configFile skillsDir; }}
     exec ${lib.getExe opencode} "$@"
   '';
 }
